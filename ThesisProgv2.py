@@ -43,13 +43,28 @@ menu = ["TIME OF FEEDING",
         "START OPERATION"]
 
 sub_menu_Time = {"TIME OF FEEDING": ["HRS"]}
-sub_menu_Weight = {"KILOGRAM/GRAMS":  ["KILO GRAMS", "GRAMS"]}
+sub_menu_Weight = {"KILOGRAM/GRAMS":  ["KILOGRAMS", "GRAMS"]}
 
 Select_menu = 0
 options_menu = 0  # Main menu State
 
 suboptions_menu = 0
 subselected = False
+
+
+
+def display_submenu(submenu, subselected, suboptions_menu):
+    if button_up.value() == True:
+        lcd.clear()
+        suboptions_menu = max(suboptions_menu - 1, 0)
+        lcd.move_to(0, 0)
+        lcd.putstr(f"{submenu[suboptions_menu]}")
+    if button_down.value() == True:
+        lcd.clear()
+        suboptions_menu = min(suboptions_menu + 1, len(submenu) - 1)
+        lcd.move_to(0, 0)
+        lcd.putstr(f"{submenu[suboptions_menu]}")
+    return suboptions_menu
 
 
 def RealTime():
@@ -72,9 +87,10 @@ def RealTime():
     sleep(10)
 
 
-def menu_buttons():
-    options_menu = 0
-
+# RealTime()
+while True:
+    #RealTime()
+    
     if button_up.value() == True:
         lcd.clear()
         options_menu = max(options_menu - 1, 0)
@@ -85,9 +101,28 @@ def menu_buttons():
         options_menu = min(options_menu + 1, len(menu) - 1)
         lcd.move_to(0, 0)
         lcd.putstr(f"{menu[options_menu]}")
+        
+    def display_submenu(submenu, subselected, suboptions_menu):
+        if button_up.value() == True:
+            lcd.clear()
+            suboptions_menu = max(suboptions_menu - 1, 0)
+            lcd.move_to(0, 0)
+            lcd.putstr(f"{submenu[suboptions_menu]}")
+        if button_down.value() == True:
+            lcd.clear()
+            suboptions_menu = min(suboptions_menu + 1, len(submenu) - 1)
+            lcd.move_to(0, 0)
+            lcd.putstr(f"{submenu[suboptions_menu]}")
+        return suboptions_menu
+    
+    if button_select.value() == True:
+        if options_menu == 0:
+            submenu = sub_menu_Time[menu[options_menu]]
+            subselected = True
+    elif options_menu == 1:
+        submenu = sub_menu_Weight[menu[options_menu]]
+        subselected = True
 
-
-# RealTime()
-while True:
-    RealTime()
-    menu_buttons()
+    if subselected:
+        suboptions_menu = display_submenu(submenu, subselected, suboptions_menu)
+    
