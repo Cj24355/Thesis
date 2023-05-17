@@ -8,7 +8,7 @@ Servo servo1;
 
 int ledPin1 = 11;
 int ledPin2 = 8;
-int ledPin3 = A0;
+int ledPin3 = 4;
 
 int trigPin1 = 9;
 int echoPin1 = 10;
