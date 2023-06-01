@@ -18,8 +18,8 @@ button_reset = Pin(14, Pin.IN, Pin.PULL_UP)
 if button_reset.value() == 0:
     machine.reset()
 
-SSID = 'ALHN-72AD'
-PSWD = 'nCHLL2XrRN'
+SSID = 'Wifi-username'
+PSWD = 'Wifi-Password'
 
 net = network.WLAN(network.STA_IF)
 net.active(True)
